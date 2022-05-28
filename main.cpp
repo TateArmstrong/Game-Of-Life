@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <windows.h>
+#include<time.h>
 
 const int CELL_SIZE = 8;
 const int WIDTH = 100;
@@ -26,11 +28,21 @@ int getCellCount(int row, int col){
 	for(int x = -1; x < 2; x++){
 		for(int y = -1; y < 2; y++){
             if (IsOutOfBounds(row + x, col + y)){continue;}
+            if (x == 0 && y == 0){continue;}
             if (currentBoard[row + x][col + y] == 1){
                 temp++;
             }
 		}
 	}
+    /*if(currentBoard[row - 1][col - 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
+    if(currentBoard[row - 1][col] == 1 && !IsOutOfBounds(row - 1, col)){temp++;}
+    if(currentBoard[row - 1][col + 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
+    if(currentBoard[row][col - 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
+    if(currentBoard[row][col + 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
+    if(currentBoard[row + 1][col - 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
+    if(currentBoard[row + 1][col] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
+    if(currentBoard[row + 1][col + 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}*/
+
 	return temp;
 }
 
@@ -44,6 +56,21 @@ void DrawCells(sf::RenderWindow &win, sf::RectangleShape &cell){
             }
         }
     }
+}
+
+void updateCells(){
+    for(int x = 0; x < WIDTH; x++){
+        for(int y = 0; y < HEIGHT; y++){
+            // If the current cell is dead and it has 3 alive neighbors, it becomes alive
+            int cellCount = getCellCount(x, y);
+            switch(currentBoard[x][y]){
+                case 1:
+                    if(cellCount <= 1 || cellCount >= 4){nextBoard[x][y] == 0;}
+                case 0:
+                    if(cellCount == 3){nextBoard[x][y] = 1;}
+            }
+        }
+    }
     // Updating next board
     for(int x = 0; x < WIDTH; x++){
         for(int y = 0; y < HEIGHT; y++){
@@ -52,26 +79,20 @@ void DrawCells(sf::RenderWindow &win, sf::RectangleShape &cell){
     }
 }
 
-void updateCells(){
+int main()
+{
+    srand(time(0));
+
     for(int x = 0; x < WIDTH; x++){
         for(int y = 0; y < HEIGHT; y++){
-            // If the current cell is dead and it has 3 alive neighbors, it becomes alive
-            switch(currentBoard[x][y]){
-                case 0:
-                    if(getCellCount(x, y) == 3){nextBoard[x][y] = 1;}break;
-                case 1:
-                    if(getCellCount(x, y) <= 1 || getCellCount(x, y) >= 4){nextBoard[x][y] == 0;}break;
+            if(rand() % 100 + 1 < 10){
+                currentBoard[x][y] = 1;
+            }
+            else{
+                currentBoard[x][y] = 0;
             }
         }
     }
-}
-
-int main()
-{
-    for(int x = 0; x < 50; x++){
-        currentBoard[x][0] = 1;
-    }
-    currentBoard[4][4] = 1;
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Conway's Game of Life");
 
@@ -89,8 +110,9 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
+        
         updateCells();
+        //Sleep(2000);
 
         // clear the window with black color
         window.clear(sf::Color::Black);
