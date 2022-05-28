@@ -1,13 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <windows.h>
-#include<time.h>
+#include <time.h>
 
 const int CELL_SIZE = 8;
 const int WIDTH = 100;
 const int HEIGHT = 75;
 int currentBoard[WIDTH][HEIGHT];
 int nextBoard[WIDTH][HEIGHT];
+
+void UpdateCurrentBoard(){
+    for(int x = 0; x < WIDTH; x++){
+        for(int y = 0; y < HEIGHT; y++){
+            currentBoard[x][y] = nextBoard[x][y];
+        }
+    }
+}
 
 bool IsOutOfBounds(int row, int col){
 	if(row < 0 || row >= WIDTH){
@@ -21,7 +29,7 @@ bool IsOutOfBounds(int row, int col){
 	}
 }
 
-// Loops through the eight cells around the specified cell and checks if it is alive
+// Loops through the eight cells around the specified cell and checks if it is alive -mwindows
 // This function is using currentBoard
 int getCellCount(int row, int col){
     int temp = 0;
@@ -50,7 +58,13 @@ void DrawCells(sf::RenderWindow &win, sf::RectangleShape &cell){
     for(int x = 0; x < WIDTH; x++){
         for(int y = 0; y < HEIGHT; y++){
             // Remember this is using nextBoard
-            if(nextBoard[x][y] == 1){
+            if(currentBoard[x][y] == 1){
+                cell.setFillColor(sf::Color::White);
+                cell.setPosition(sf::Vector2f(x * CELL_SIZE, y * CELL_SIZE));
+                win.draw(cell);
+            }
+            else{
+                cell.setFillColor(sf::Color::Black);
                 cell.setPosition(sf::Vector2f(x * CELL_SIZE, y * CELL_SIZE));
                 win.draw(cell);
             }
@@ -69,12 +83,6 @@ void updateCells(){
                 case 0:
                     if(cellCount == 3){nextBoard[x][y] = 1;}
             }
-        }
-    }
-    // Updating next board
-    for(int x = 0; x < WIDTH; x++){
-        for(int y = 0; y < HEIGHT; y++){
-            currentBoard[x][y] = nextBoard[x][y];
         }
     }
 }
@@ -123,6 +131,7 @@ int main()
 
         // end the current frame
         window.display();
+        UpdateCurrentBoard();
     }
 
     return 0;
