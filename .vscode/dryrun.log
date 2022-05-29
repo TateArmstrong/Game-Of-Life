@@ -1,0 +1,8 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make: Entering directory 'c:/Users/Tate/Documents/C++ Projects/Game-Of-Life'
+g++ -IC:\SFML-2.5.1\include -c main.cpp -o main.o
+g++ -IC:\SFML-2.5.1\include -c Board.cpp -o Board.o
+g++ -IC:\SFML-2.5.1\include -c BoardTest.cpp -o BoardTest.o
+g++ -LC:\SFML-2.5.1\lib Board.o main.o -o GameOfLife -lsfml-graphics -lsfml-window -lsfml-system -mwindows
+make: Leaving directory 'c:/Users/Tate/Documents/C++ Projects/Game-Of-Life'
+ 

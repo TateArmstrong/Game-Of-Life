@@ -69,7 +69,7 @@ int Board::GetCellCount(int row, int col){
     return temp;
 }
 
-void Board::DrawCells(sf::RenderWindow &win, sf::RectangleShape &cell)
+void Board::DrawCells(sf::RenderWindow& win, sf::RectangleShape& cell)
 {
     for(int x = 0; x < WIDTH; x++)
     {

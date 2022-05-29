@@ -17,6 +17,6 @@ class Board
         void UpdateCurrentBoard();
         bool IsOutOfBounds(int row, int col);
         int GetCellCount(int row, int col);
-        void DrawCells(sf::RenderWindow &win, sf::RectangleShape &cell);
+        void DrawCells(sf::RenderWindow& win, sf::RectangleShape& cell);
         void UpdateCells();
 };
