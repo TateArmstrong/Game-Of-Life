@@ -1,0 +1,18 @@
+#include "Board.h"
+#include <iostream>
+#include <vector>
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+    Board board;
+
+    for(int x = 0; x < board.WIDTH; x++){
+        for(int y = 0; y < board.HEIGHT; y++){
+            std::cout << board.currentBoard[x][y] << ", ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
