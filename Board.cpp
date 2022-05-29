@@ -1,10 +1,17 @@
 #include "Board.h"
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <iostream>
 
 Board::Board()
 {
     srand(clock());
+    currentBoard.resize(WIDTH);
+    nextBoard.resize(HEIGHT);
     for(int x = 0; x < WIDTH; x++)
     {
+        currentBoard[x].resize(WIDTH);
+        nextBoard[x].resize(HEIGHT);
         for(int y = 0; y < HEIGHT; y++)
         {
             if(rand() % 100 + 1 < 10)
