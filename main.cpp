@@ -3,9 +3,9 @@
 #include <windows.h>
 #include <time.h>
 
-const float CELL_SIZE = 64.0f;
-const int WIDTH = 10;
-const int HEIGHT = 10;
+const float CELL_SIZE = 8.0f;
+const int WIDTH = 100;
+const int HEIGHT = 75;
 int currentBoard[WIDTH][HEIGHT];
 int nextBoard[WIDTH][HEIGHT];
 
@@ -25,8 +25,8 @@ bool isOutOfBounds(int row, int col){
 // This function is using currentBoard
 int getCellCount(int row, int col){
     int temp = 0;
-	for(int x = -1; x < 2; x++){
-		for(int y = -1; y < 2; y++){
+	for(int x = -1; x <= 1; x++){
+		for(int y = -1; y <= 1; y++){
             if (isOutOfBounds(row + x, col + y)){continue;}
             if (x == 0 && y == 0){continue;}
             if (currentBoard[row + x][col + y] == 1){
@@ -48,7 +48,7 @@ int getCellCount(int row, int col){
 
 void drawCells(sf::RenderWindow& win)
 {
-    sf::CircleShape cell(32.0f);
+    sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 
     for(int x = 0; x < WIDTH; x++){
     for(int y = 0; y < HEIGHT; y++){
@@ -76,10 +76,10 @@ void updateCells()
         switch(currentBoard[x][y]){
             // If the current cell is dead and it has 3 alive neighbors, it becomes alive
             case 0:
-                if(cellCount == 3){nextBoard[x][y] = 1;}
-            // If the current cell is alive 
+                if(cellCount == 3){nextBoard[x][y] = 1;}break;
+            // If the current cell is alive and has less than 2 and greater than 3 neighbors, it dies.
             case 1:
-                if(cellCount < 2 || cellCount > 3){nextBoard[x][y] = 0;}
+                if(cellCount < 2 || cellCount > 3){nextBoard[x][y] = 0;}break;
         }
     }
     }
@@ -109,14 +109,21 @@ int main()
         for(int y = 0; y < HEIGHT; y++){
             if(rand() % 100 + 1 < 20){
                 currentBoard[x][y] = 1;
+                nextBoard[x][y] = 1;
             }
             else{
                 currentBoard[x][y] = 0;
+                nextBoard[x][y] = 0;
             }
         }
     }
+    currentBoard[9][0] = 1;
+    currentBoard[8][0] = 1;
+    currentBoard[8][1] = 1;
+    currentBoard[9][1] = 1;
+    //std::cout << getCellCount(9, 0) << std::endl;
 
-    sf::RenderWindow window(sf::VideoMode(640, 640), "Conway's Game of Life");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Conway's Game of Life");
 
     sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
     cell.setFillColor(sf::Color::White);
@@ -136,8 +143,8 @@ int main()
         //UpdateCurrentBoard();
         //updateCells();
         //Sleep(2000);
-        printBoard();
-        std::cin.get();
+        //printBoard();
+        //std::cin.get();
 
         // clear the window with black color
         window.clear(sf::Color::Black);
@@ -151,9 +158,6 @@ int main()
         window.display();
         updateCells();
     }
-
-    printBoard();
-    std::cin.get();
 
     return 0;
 }
