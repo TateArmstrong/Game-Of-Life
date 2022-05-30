@@ -3,62 +3,61 @@
 #include <windows.h>
 #include <time.h>
 
+// Size of the cells in pixels
 const float CELL_SIZE = 8.0f;
+// Initial spawn chance out of 100
+const int INITIAL_SPAWN_WEIGHT = 20;
+// Width and Height of the screen in CELL_SIZE. ex. if CELL_SIZE = 8 and WIDTH = 100 the width of the window
+// would be 800 in pixels
 const int WIDTH = 100;
 const int HEIGHT = 75;
+// 2D array repesenting the game board
 int currentBoard[WIDTH][HEIGHT];
 int nextBoard[WIDTH][HEIGHT];
 
-bool isOutOfBounds(int row, int col){
-	if(row < 0 || row >= WIDTH){
+// Checks to see if the specified cell coordinate is out of bounds, returns true if out of bounds
+bool isOutOfBounds(int row, int col)
+{
+	if(row < 0 || row >= WIDTH)
 		return true;
-	}
-	else if(col < 0 || col >= HEIGHT){
+	else if(col < 0 || col >= HEIGHT)
 		return true;
-	}
-	else{
+	else
 		return false;
-	}
 }
 
-// Loops through the eight cells around the specified cell and checks if it is alive -mwindows
-// This function is using currentBoard
-int getCellCount(int row, int col){
+// Returns the number of alive cells around the specified cell position
+int getCellCount(int row, int col)
+{
     int temp = 0;
 	for(int x = -1; x <= 1; x++){
-		for(int y = -1; y <= 1; y++){
-            if (isOutOfBounds(row + x, col + y)){continue;}
-            if (x == 0 && y == 0){continue;}
-            if (currentBoard[row + x][col + y] == 1){
-                temp++;
-            }
-		}
-	}
-    /*if(currentBoard[row - 1][col - 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
-    if(currentBoard[row - 1][col] == 1 && !IsOutOfBounds(row - 1, col)){temp++;}
-    if(currentBoard[row - 1][col + 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
-    if(currentBoard[row][col - 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
-    if(currentBoard[row][col + 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
-    if(currentBoard[row + 1][col - 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
-    if(currentBoard[row + 1][col] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}
-    if(currentBoard[row + 1][col + 1] == 1 && !IsOutOfBounds(row - 1, col - 1)){temp++;}*/
+	for(int y = -1; y <= 1; y++){
 
+        if (isOutOfBounds(row + x, col + y))
+            continue;
+        if (x == 0 && y == 0)
+            continue;
+        if (currentBoard[row + x][col + y] == 1)
+            temp++;
+	}
+	}
 	return temp;
 }
 
-void drawCells(sf::RenderWindow& win)
+// Draws the cells to the screen with specified colors
+void drawCells(sf::RenderWindow& win, sf::Color aliveColor, sf::Color deadColor)
 {
     sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 
     for(int x = 0; x < WIDTH; x++){
     for(int y = 0; y < HEIGHT; y++){
         if(currentBoard[x][y] == 1){
-            cell.setFillColor(sf::Color::Blue);
+            cell.setFillColor(aliveColor);
             cell.setPosition(sf::Vector2f(x * CELL_SIZE, y * CELL_SIZE));
             win.draw(cell);
         }
         else{
-            cell.setFillColor(sf::Color::Green);
+            cell.setFillColor(deadColor);
             cell.setPosition(sf::Vector2f(x * CELL_SIZE, y * CELL_SIZE));
             win.draw(cell);
         }
@@ -68,11 +67,14 @@ void drawCells(sf::RenderWindow& win)
     }
 }
 
+// Updates the nextBoard with Game of Life rules
 void updateCells()
 {
     for(int x = 0; x < WIDTH; x++){
     for(int y = 0; y < HEIGHT; y++){
+
         int cellCount = getCellCount(x, y);
+
         switch(currentBoard[x][y]){
             // If the current cell is dead and it has 3 alive neighbors, it becomes alive
             case 0:
@@ -85,43 +87,28 @@ void updateCells()
     }
 }
 
-void printBoard()
-{
-    for(int x = 0; x < WIDTH; x++){
-        for(int y = 0; y < HEIGHT; y++){
-            if(currentBoard[x][y] == 1){
-                std::cout << (char)178 << ' ';
-            }
-            else{
-                std::cout << (char)176 << ' ';
-            }
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "====================" <<std::endl;
-}
-
-int main()
+// Initalizes the boards with random alive cells
+void initBoards()
 {
     srand(time(0));
 
     for(int x = 0; x < WIDTH; x++){
-        for(int y = 0; y < HEIGHT; y++){
-            if(rand() % 100 + 1 < 20){
-                currentBoard[x][y] = 1;
-                nextBoard[x][y] = 1;
-            }
-            else{
-                currentBoard[x][y] = 0;
-                nextBoard[x][y] = 0;
-            }
+    for(int y = 0; y < HEIGHT; y++){
+        if(rand() % 100 + 1 < INITIAL_SPAWN_WEIGHT){
+            currentBoard[x][y] = 1;
+            nextBoard[x][y] = 1;
+        }
+        else{
+            currentBoard[x][y] = 0;
+            nextBoard[x][y] = 0;
         }
     }
-    currentBoard[9][0] = 1;
-    currentBoard[8][0] = 1;
-    currentBoard[8][1] = 1;
-    currentBoard[9][1] = 1;
-    //std::cout << getCellCount(9, 0) << std::endl;
+    }
+}
+
+int main()
+{
+    initBoards();
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Conway's Game of Life");
 
@@ -139,20 +126,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        
-        //UpdateCurrentBoard();
-        //updateCells();
-        //Sleep(2000);
-        //printBoard();
-        //std::cin.get();
 
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        // draw everything here...
-        // window.draw(...);
-        //DrawCells(window, cell);
-        drawCells(window);
+            // draw everything here...
+            drawCells(window, sf::Color::Blue, sf::Color::Green);
 
         // end the current frame
         window.display();
