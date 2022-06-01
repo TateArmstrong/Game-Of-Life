@@ -5,9 +5,8 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Sun May 29 22:40:59 2022
+# Make data base, printed on Mon May 30 11:32:05 2022
 
 # Variables
 
@@ -22,9 +21,9 @@ USERPROFILE = C:\Users\Tate
 # environment
 LOCALAPPDATA = C:\Users\Tate\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-8bdba5c7-fd17-4790-87c6-65dca2e13d5e-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-8fa06d2d-613d-4dcb-bd11-f3681f0fe053-sock
 # environment
-VSCODE_CWD = C:\Users\Tate\Documents\C++ Projects\Game-Of-Life
+VSCODE_CWD = C:\Users\Tate\AppData\Local\Programs\Microsoft VS Code
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
@@ -38,7 +37,7 @@ MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_15852_FQLNRQANVWXQAOSB
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_14360_AOCNRDIICEUZHCHV
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -84,7 +83,8 @@ MFLAGS = -pqrR
 # environment
 COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # automatic
-+D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
++D = $(patsubst %/,%,$(patsubst 
+ %\,%,$(dir $+)))
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
 # automatic
@@ -92,7 +92,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 15852
+VSCODE_PID = 14360
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -199,10 +199,6 @@ SUFFIXES :=
 ALLUSERSPROFILE = C:\ProgramData
 # environment
 SESSIONNAME = Console
-# environment
-VSCODE_CLI = 1
-# environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
@@ -210,7 +206,7 @@ PROCESSOR_REVISION = a502
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 # variable set hash-table stats:
-# Load=99/1024=10%, Rehash=0, Collisions=9/129=7%
+# Load=97/1024=9%, Rehash=0, Collisions=9/127=7%
 
 # Pattern-specific Variable Values
 
@@ -218,7 +214,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/Tate/Documents/C++ Projects/Game-Of-Life, mtime 1653856128): 10 files, no impossibilities.
+# . (key c:/Users/Tate/Documents/C++ Projects/Game-Of-Life, mtime 1653891659): 10 files, no impossibilities.
 
 # 10 files, no impossibilities in 1 directories.
 
@@ -231,7 +227,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-29 22:40:54
+#  Last modified 2022-05-30 01:00:12
 #  File has been updated.
 #  Successfully updated.
 
@@ -263,7 +259,7 @@ all: main.o
 # Not a target:
 main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-29 22:40:14
+#  Last modified 2022-05-30 01:20:55
 #  File has been updated.
 #  Successfully updated.
 
@@ -313,8 +309,8 @@ main.o: main.cpp
 
 # strcache performance: lookups = 26 / hit rate = 42%
 # hash-table stats:
-# Load=15/8192=0%, Rehash= 
-0, Collisions=0/26=0%
-# Finished Make data base on Sun May 29 22:40:59 2022
+# Load=15/8192=0%, Rehash=0, Collisions=0/26=0%
+# Finished Make data base on Mon May 30 11:32:05 
+ 2022
 
  

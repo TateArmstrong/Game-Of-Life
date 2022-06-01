@@ -9,11 +9,12 @@ const float CELL_SIZE = 8.0f;
 const int INITIAL_SPAWN_WEIGHT = 20;
 // Width and Height of the screen in CELL_SIZE. ex. if CELL_SIZE = 8 and WIDTH = 100 the width of the window
 // would be 800 in pixels
-const int WIDTH = 100;
-const int HEIGHT = 75;
+const int WIDTH = 160;
+const int HEIGHT = 100;
 // 2D array repesenting the game board
 int currentBoard[WIDTH][HEIGHT];
 int nextBoard[WIDTH][HEIGHT];
+bool isGamePaused = false;
 
 // Checks to see if the specified cell coordinate is out of bounds, returns true if out of bounds
 bool isOutOfBounds(int row, int col)
@@ -106,11 +107,27 @@ void initBoards()
     }
 }
 
+void handleKeyPressed(sf::Event& event, sf::RenderWindow& win)
+{
+    switch(event.key.code)
+    {
+        case sf::Keyboard::Escape:
+            win.close(); break;
+        case sf::Keyboard::Space:
+            if(isGamePaused)
+                isGamePaused = false;
+            else if (!isGamePaused)
+                isGamePaused = true;
+            break;
+    }
+}
+
 int main()
 {
     initBoards();
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Conway's Game of Life");
+    sf::RenderWindow window(sf::VideoMode(CELL_SIZE * WIDTH, CELL_SIZE * HEIGHT), "Conway's Game of Life");
+    window.setKeyRepeatEnabled(false);
 
     sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
     cell.setFillColor(sf::Color::White);
@@ -123,8 +140,17 @@ int main()
         while (window.pollEvent(event))
         {
             // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch(event.type){
+                case sf::Event::Closed:
+                    window.close(); break;
+                case sf::Event::KeyPressed:
+                    handleKeyPressed(event, window); break;
+            }
+        }
+
+        if(!isGamePaused)
+        {
+            updateCells();
         }
 
         // clear the window with black color
@@ -135,7 +161,6 @@ int main()
 
         // end the current frame
         window.display();
-        updateCells();
     }
 
     return 0;
