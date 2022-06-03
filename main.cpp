@@ -119,7 +119,24 @@ void handleKeyPressed(sf::Event& event, sf::RenderWindow& win)
             else if (!isGamePaused)
                 isGamePaused = true;
             break;
+        case sf::Keyboard::C:
+            for(int x = 0; x < WIDTH; x++){
+            for(int y = 0; y < HEIGHT; y++){
+                nextBoard[x][y] = 0;
+            }}
     }
+}
+
+void createNewCell(sf::RenderWindow& win)
+{
+    sf::Vector2i localPosition = sf::Mouse::getPosition(win);
+    nextBoard[(int)(localPosition.x / 8)][(int)(localPosition.y / 8)] = 1;
+}
+
+void deleteCell(sf::RenderWindow& win)
+{
+    sf::Vector2i localPosition = sf::Mouse::getPosition(win);
+    nextBoard[(int)(localPosition.x / 8)][(int)(localPosition.y / 8)] = 0;
 }
 
 int main()
@@ -145,6 +162,12 @@ int main()
                     window.close(); break;
                 case sf::Event::KeyPressed:
                     handleKeyPressed(event, window); break;
+            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                createNewCell(window);
+            } else if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
+                deleteCell(window);
             }
         }
 
