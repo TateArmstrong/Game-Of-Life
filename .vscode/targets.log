@@ -6,10 +6,12 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon May 30 11:32:05 2022
+# Make data base, printed on Thu Jun 02 22:45:10 2022
 
 # Variables
 
+# environment
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
 # environment
 SYSTEMDRIVE = C:
 # environment
@@ -21,7 +23,7 @@ USERPROFILE = C:\Users\Tate
 # environment
 LOCALAPPDATA = C:\Users\Tate\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-8fa06d2d-613d-4dcb-bd11-f3681f0fe053-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-98a03297-e4c7-49d4-9228-0d18c6b59551-sock
 # environment
 VSCODE_CWD = C:\Users\Tate\AppData\Local\Programs\Microsoft VS Code
 # environment
@@ -37,7 +39,9 @@ MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_14360_AOCNRDIICEUZHCHV
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_7348_FWPRXVYBYAWQDJCU
+# environment
+FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -83,8 +87,7 @@ MFLAGS = -pqrR
 # environment
 COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # automatic
-+D = $(patsubst %/,%,$(patsubst 
- %\,%,$(dir $+)))
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
 # automatic
@@ -92,7 +95,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 14360
+VSCODE_PID = 7348
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -100,7 +103,8 @@ VSCODE_PID = 14360
 # automatic
 <D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"en-us"," 
+availableLanguages":{},"_languagePackSupport":true}
 # environment
 ONEDRIVECONSUMER = C:\Users\Tate\OneDrive
 # default
@@ -202,11 +206,12 @@ SESSIONNAME = Console
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
-PROCESSOR_REVISION = a502
+PROCESSOR_ 
+REVISION = a502
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 # variable set hash-table stats:
-# Load=97/1024=9%, Rehash=0, Collisions=9/127=7%
+# Load=99/1024=10%, Rehash=0, Collisions=10/129=8%
 
 # Pattern-specific Variable Values
 
@@ -214,7 +219,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/Tate/Documents/C++ Projects/Game-Of-Life, mtime 1653891659): 10 files, no impossibilities.
+# . (key c:/Users/Tate/Documents/C++ Projects/Game-Of-Life, mtime 1654116903): 10 files, no impossibilities.
 
 # 10 files, no impossibilities in 1 directories.
 
@@ -259,7 +264,7 @@ all: main.o
 # Not a target:
 main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-30 01:20:55
+#  Last modified 2022-06-01 15:54:56
 #  File has been updated.
 #  Successfully updated.
 
@@ -310,7 +315,6 @@ main.o: main.cpp
 # strcache performance: lookups = 26 / hit rate = 42%
 # hash-table stats:
 # Load=15/8192=0%, Rehash=0, Collisions=0/26=0%
-# Finished Make data base on Mon May 30 11:32:05 
- 2022
+# Finished Make data base on Thu Jun 02 22:45:10 2022
 
  

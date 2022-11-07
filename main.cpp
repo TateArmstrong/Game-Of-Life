@@ -145,6 +145,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(CELL_SIZE * WIDTH, CELL_SIZE * HEIGHT), "Conway's Game of Life");
     window.setKeyRepeatEnabled(false);
+    window.setFramerateLimit(144);
 
     sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
     cell.setFillColor(sf::Color::White);
